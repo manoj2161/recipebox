@@ -45,10 +45,7 @@ export const Header = () => {
 
       <section className="flex flex-1 items-center justify-center px-4 pb-16 sm:px-6 md:pb-20">
         <div className="w-full max-w-3xl">
-          <h1 className="mb-5 text-center font-['Kaushan_Script'] text-3xl font-bold text-green-950 sm:text-4xl md:text-5xl">
-            What are you cooking today?
-          </h1>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mt-32">
             <div className="relative min-w-0 flex-1">
               <Search className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-green-950" />
               <input

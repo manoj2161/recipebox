@@ -24,17 +24,12 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
   const [savedRecipeIds, setSavedRecipeIds] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Loading state for default recipes
   const [loadingDefaults, setLoadingDefaults] = useState(true);
 
   const query = location.state?.query;
 
-  // Accept clearSearch from AsideNavbar
   const clearSearch = location.state?.clearSearch;
 
-  // --------------------------------------------------
-  // Load current user's name and saved recipes
-  // --------------------------------------------------
 
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem("recipeBoxUsers") || "[]");
@@ -69,9 +64,6 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
     setSavedRecipeIds(savedIds);
   }, [isLoggedIn]);
 
-  // --------------------------------------------------
-  // Handle search / Home
-  // --------------------------------------------------
 
   useEffect(() => {
     if (clearSearch) {
@@ -90,10 +82,6 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
       setSearchQuery(query);
     }
   }, [query, clearSearch]);
-
-  // --------------------------------------------------
-  // Fetch default recipes
-  // --------------------------------------------------
 
   useEffect(() => {
     async function fetchDefaults() {
@@ -122,10 +110,6 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
 
     fetchDefaults();
   }, []);
-
-  // --------------------------------------------------
-  // Search recipes
-  // --------------------------------------------------
 
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -159,8 +143,7 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
 
         if (!meals.length) {
           setError(`No recipes found for "${searchQuery.trim()}".`);
-        } else {
-        }
+        } 
       } catch (err) {
         if (err.name !== "CanceledError" && err.name !== "AbortError") {
           console.error(err);
@@ -176,10 +159,6 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
 
     return () => controller.abort();
   }, [searchQuery]);
-
-  // --------------------------------------------------
-  // Random recipe
-  // --------------------------------------------------
 
   async function handleRandom() {
     try {
@@ -200,10 +179,6 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
       setLoading(false);
     }
   }
-
-  // --------------------------------------------------
-  // Save recipe
-  // --------------------------------------------------
 
   function saveRecipe(recipeToSave) {
     const currentUser = JSON.parse(
@@ -274,10 +249,6 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
 
   }
 
-  // --------------------------------------------------
-  // UI
-  // --------------------------------------------------
-
   return (
     <div className="min-h-screen bg-gray-50">
       <AsideNavbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -305,13 +276,7 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
 
             <div className="absolute inset-0 flex items-end justify-between gap-4 p-4 sm:p-6">
               <div className="max-w-md text-white drop-shadow-md">
-                <h1 className="text-xl font-bold sm:text-2xl">
-                  Don't know what to cook?
-                </h1>
-
-                <p className="mt-1 hidden text-sm sm:block">
-                  Let RecipeBox choose something delicious for you.
-                </p>
+        
               </div>
 
               <button
@@ -324,8 +289,7 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
             </div>
           </section>
 
-          {/* DEFAULT RECIPES */}
-
+      
           {!searchQuery.trim() && !random && (
             <section>
               <div className="mb-4">
@@ -338,8 +302,7 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
                 </p>
               </div>
 
-              {/* DEFAULT RECIPE SKELETON */}
-
+    
               {loadingDefaults ? (
                 <div className="grid gap-5 lg:grid-cols-3">
                   <RecipeSkeleton />
