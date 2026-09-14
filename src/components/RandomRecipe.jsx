@@ -1,6 +1,5 @@
 import { ArrowRight, Heart, Shuffle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
 export const RandomRecipe = ({ random, saveRecipe }) => {
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ export const RandomRecipe = ({ random, saveRecipe }) => {
           <div className="mt-5 flex flex-col gap-2 sm:flex-row">
             <button onClick={() => saveRecipe(random)} className="flex items-center justify-center gap-2 rounded-xl bg-green-950 px-4 py-2.5 text-sm font-bold text-white hover:bg-green-900"><Heart className="size-4" /> Save Recipe</button>
             <button onClick={() => {
-              toast.success("Opening full recipe");
               navigate(`/recipe/${random.idMeal}`);
             }} className="flex items-center justify-center gap-2 rounded-xl bg-blue-900 px-4 py-2.5 text-sm font-bold text-white hover:bg-blue-800">Get Recipe <ArrowRight className="size-4" /></button>
           </div>

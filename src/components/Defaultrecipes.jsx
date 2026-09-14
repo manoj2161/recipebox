@@ -1,5 +1,3 @@
-import { Toaster } from "react-hot-toast";
-import toast from "react-hot-toast";
 import {
   ChevronLeft,
   ChevronRight,
@@ -39,7 +37,6 @@ export const Defaultrecipes = ({
 
   return (
     <section className="min-w-0 flex-1 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
-      <Toaster position="top-right" />
 
       {/* HEADER */}
 
@@ -63,7 +60,6 @@ export const Defaultrecipes = ({
             disabled={index === 0}
             onClick={() => {
               setIndex((i) => Math.max(0, i - 1));
-              toast.success("Previous recipes");
             }}
             className="flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white transition hover:bg-gray-50 disabled:cursor-default disabled:opacity-30"
           >
@@ -76,7 +72,6 @@ export const Defaultrecipes = ({
             disabled={index === maxIndex}
             onClick={() => {
               setIndex((i) => Math.min(maxIndex, i + 1));
-              toast.success("Next recipes");
             }}
             className="flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white transition hover:bg-gray-50 disabled:cursor-default disabled:opacity-30"
           >
@@ -179,7 +174,6 @@ export const Defaultrecipes = ({
 
                     <button
                       onClick={() => {
-                        toast.success("Opening recipe");
                         navigate(`/recipe/${recipe.idMeal}`);
                       }}
                       className="flex items-center justify-center gap-1.5 rounded-xl bg-green-950 px-2 py-2.5 text-xs font-semibold text-white transition-all duration-200 hover:bg-green-900 active:scale-95"

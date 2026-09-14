@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Trash2, ShoppingBasket, Plus } from "lucide-react";
-import toast from "react-hot-toast";
 
 export const ShoppingList = ({ isLoggedIn }) => {
   const navigate = useNavigate();
@@ -35,7 +34,6 @@ export const ShoppingList = ({ isLoggedIn }) => {
 
   function handleAddItem() {
     if (item.trim() === "") {
-      toast.error("Please enter an item");
       return;
     }
 
@@ -48,7 +46,6 @@ export const ShoppingList = ({ isLoggedIn }) => {
     setItems((prev) => [...prev, newItem]);
     setItem("");
 
-    toast.success("Item added");
   }
 
   function handleCheck(id) {
@@ -62,13 +59,11 @@ export const ShoppingList = ({ isLoggedIn }) => {
           : item,
       ),
     );
-    toast.success("Item status updated");
   }
 
   function handleDelete(id) {
     setItems((prev) => prev.filter((item) => item.id !== id));
 
-    toast.success("Item removed");
   }
 
   // Login required
@@ -90,7 +85,6 @@ export const ShoppingList = ({ isLoggedIn }) => {
 
           <button
             onClick={() => {
-              toast.success("Opening Login");
               navigate("/login");
             }}
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-green-950 px-6 py-3 font-semibold text-white transition hover:bg-green-900 active:scale-95"
@@ -100,7 +94,6 @@ export const ShoppingList = ({ isLoggedIn }) => {
 
           <button
             onClick={() => {
-            toast.success("Going back");
             navigate(-1);
           }}
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-50 active:scale-95"

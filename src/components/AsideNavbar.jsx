@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Home, LogOut, NotepadText, ShoppingBasket } from "lucide-react";
 import logo from "../assets/logo.png";
-import toast from "react-hot-toast";
 
 export const AsideNavbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -11,12 +10,10 @@ export const AsideNavbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
     setIsLoggedIn(false);
 
-    toast.success("Logged out successfully");
     navigate("/");
   }
 
   function handleHome() {
-    toast.success("Home opened");
     navigate("/search", {
       state: {
         clearSearch: Date.now(),
@@ -51,7 +48,6 @@ export const AsideNavbar = ({ isLoggedIn, setIsLoggedIn }) => {
           {isLoggedIn && (
             <button
               onClick={() => {
-                toast.success("Opening My Recipes");
                 navigate("/myrecipes");
               }}
               className="flex h-11 w-full items-center gap-3 rounded-xl px-4 font-semibold text-green-950 transition hover:bg-green-100"
@@ -65,7 +61,6 @@ export const AsideNavbar = ({ isLoggedIn, setIsLoggedIn }) => {
           {isLoggedIn && (
             <button
               onClick={() => {
-                toast.success("Opening Shopping List");
                 navigate("/shoppinglist");
               }}
               className="flex h-11 w-full items-center gap-3 rounded-xl px-4 font-semibold text-green-950 transition hover:bg-green-100"
@@ -104,7 +99,6 @@ export const AsideNavbar = ({ isLoggedIn, setIsLoggedIn }) => {
         {isLoggedIn && (
           <button
             onClick={() => {
-                toast.success("Opening My Recipes");
                 navigate("/myrecipes");
               }}
             className="flex min-w-16 flex-col items-center gap-1 py-2 text-green-950"
@@ -120,7 +114,6 @@ export const AsideNavbar = ({ isLoggedIn, setIsLoggedIn }) => {
         {isLoggedIn && (
           <button
             onClick={() => {
-                toast.success("Opening Shopping List");
                 navigate("/shoppinglist");
               }}
             className="flex min-w-16 flex-col items-center gap-1 py-2 text-green-950"

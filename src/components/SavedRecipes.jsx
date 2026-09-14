@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Heart, ArrowUpRight, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import { BookOpen, Heart, ArrowUpRight, Trash2 } from "lucide-react";
 import { AsideNavbar } from "./AsideNavbar";
 
 export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
@@ -40,7 +40,6 @@ export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
     const users = JSON.parse(localStorage.getItem("recipeBoxUsers") || "[]");
 
     if (!currentUser) {
-      toast.error("Please login first");
       return;
     }
 
@@ -72,8 +71,8 @@ export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
       recipes.filter((recipe) => String(recipe.idMeal) !== String(recipeId)),
     );
 
-    // Show toast
     toast.success("Recipe removed from My Recipes");
+
   }
 
   return (
@@ -120,7 +119,6 @@ export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
 
               <button
                 onClick={() => {
-                  toast.success("Opening recipe search");
                   navigate("/search");
                 }}
                 className="mt-5 rounded-xl bg-green-950 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-900 active:scale-95"
@@ -171,7 +169,6 @@ export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
 
                       <button
                         onClick={() => {
-                          toast.success("Opening recipe");
                           navigate(`/recipe/${recipe.idMeal}`);
                         }}
                         className="flex items-center justify-center gap-1.5 rounded-xl bg-green-950 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-green-900 hover:shadow-md active:scale-95"

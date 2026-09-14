@@ -2,7 +2,6 @@ import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "./AuthLayout";
-import toast from "react-hot-toast";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -44,7 +43,6 @@ export const Signup = () => {
       newErrors.cpassword = "Passwords do not match";
 
     if (Object.keys(newErrors).length) {
-      toast.error("Please fix the errors and try again");
       return setErrors(newErrors);
     }
 
@@ -57,7 +55,6 @@ export const Signup = () => {
       myRecipes: [],
     });
     localStorage.setItem("recipeBoxUsers", JSON.stringify(users));
-    toast.success("Account created successfully!");
     setLoader(true);
     setTimeout(() => {
       setLoader(false);
@@ -221,7 +218,6 @@ export const Signup = () => {
             <button
               type="button"
               onClick={() => {
-                toast.success("Opening Login");
                 navigate("/login");
               }}
               className="font-bold text-green-950 hover:underline"

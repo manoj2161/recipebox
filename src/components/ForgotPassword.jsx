@@ -2,7 +2,6 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "./AuthLayout";
-import toast from "react-hot-toast";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -39,7 +38,6 @@ export const ForgotPassword = () => {
     else if (formData.cpassword !== formData.password)
       newErrors.cpassword = "Passwords do not match";
     if (Object.keys(newErrors).length) {
-      toast.error("Please fix the errors and try again");
       return setErrors(newErrors);
     }
 
@@ -57,7 +55,6 @@ export const ForgotPassword = () => {
         ),
       ),
     );
-    toast.success("Password changed successfully!");
     setLoader(true);
     setTimeout(() => {
       setLoader(false);
