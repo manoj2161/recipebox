@@ -119,7 +119,10 @@ export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
               </p>
 
               <button
-                onClick={() => navigate("/search")}
+                onClick={() => {
+                  toast.success("Opening recipe search");
+                  navigate("/search");
+                }}
                 className="mt-5 rounded-xl bg-green-950 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-900 active:scale-95"
               >
                 Find Recipes
@@ -167,7 +170,10 @@ export const SavedRecipes = ({ isLoggedIn, setIsLoggedIn }) => {
                       {/* GET RECIPE */}
 
                       <button
-                        onClick={() => navigate(`/recipe/${recipe.idMeal}`)}
+                        onClick={() => {
+                          toast.success("Opening recipe");
+                          navigate(`/recipe/${recipe.idMeal}`);
+                        }}
                         className="flex items-center justify-center gap-1.5 rounded-xl bg-green-950 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-green-900 hover:shadow-md active:scale-95"
                       >
                         View

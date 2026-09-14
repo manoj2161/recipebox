@@ -1,4 +1,5 @@
 import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import {
   ChevronLeft,
   ChevronRight,
@@ -60,7 +61,10 @@ export const Defaultrecipes = ({
 
           <button
             disabled={index === 0}
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            onClick={() => {
+              setIndex((i) => Math.max(0, i - 1));
+              toast.success("Previous recipes");
+            }}
             className="flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white transition hover:bg-gray-50 disabled:cursor-default disabled:opacity-30"
           >
             <ChevronLeft className="size-5" />
@@ -70,7 +74,10 @@ export const Defaultrecipes = ({
 
           <button
             disabled={index === maxIndex}
-            onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+            onClick={() => {
+              setIndex((i) => Math.min(maxIndex, i + 1));
+              toast.success("Next recipes");
+            }}
             className="flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white transition hover:bg-gray-50 disabled:cursor-default disabled:opacity-30"
           >
             <ChevronRight className="size-5" />
@@ -171,7 +178,10 @@ export const Defaultrecipes = ({
                     {/* VIEW */}
 
                     <button
-                      onClick={() => navigate(`/recipe/${recipe.idMeal}`)}
+                      onClick={() => {
+                        toast.success("Opening recipe");
+                        navigate(`/recipe/${recipe.idMeal}`);
+                      }}
                       className="flex items-center justify-center gap-1.5 rounded-xl bg-green-950 px-2 py-2.5 text-xs font-semibold text-white transition-all duration-200 hover:bg-green-900 active:scale-95"
                     >
                       View

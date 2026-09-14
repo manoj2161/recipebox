@@ -2,6 +2,7 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "./AuthLayout";
+import toast from "react-hot-toast";
 
 export const Login = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -44,10 +45,14 @@ export const Login = ({ setIsLoggedIn }) => {
     if (!formData.password.trim()) newErrors.password = "Password is required";
     else if (existingUser && formData.password !== existingUser.password) newErrors.password = "Incorrect password";
 
-    if (Object.keys(newErrors).length) return setErrors(newErrors);
+    if (Object.keys(newErrors).length) {
+      toast.error("Please fix the errors and try again");
+      return setErrors(newErrors);
+    }
 
     localStorage.setItem("recipeBoxCurrentUser", JSON.stringify(existingUser.id));
     savePendingRecipe();
+    toast.success("Login successful!");
     setLoader(true);
     setTimeout(() => {
       setLoader(false);
@@ -73,9 +78,15 @@ export const Login = ({ setIsLoggedIn }) => {
             {errors.password && <p className="mt-1 text-xs font-semibold text-red-500">{errors.password}</p>}
           </div>
 
-          <div className="text-right"><button type="button" onClick={() => navigate("/forgot")} className="text-sm font-semibold text-green-950 hover:underline">Forgot Password?</button></div>
+          <div className="text-right"><button type="button" onClick={() => {
+            toast.success("Opening password reset");
+            navigate("/forgot");
+          }} className="text-sm font-semibold text-green-950 hover:underline">Forgot Password?</button></div>
           <button type="submit" disabled={loader} className="flex h-12 w-full items-center justify-center rounded-xl bg-green-950 font-bold text-white transition hover:bg-green-900 disabled:opacity-70">{loader ? <span className="size-5 animate-spin rounded-full border-2 border-white border-t-transparent" /> : "Login"}</button>
-          <p className="text-center text-sm text-gray-600">Don't have an account? <button type="button" onClick={() => navigate("/signup")} className="font-bold text-green-950 hover:underline">Sign Up</button></p>
+          <p className="text-center text-sm text-gray-600">Don't have an account? <button type="button" onClick={() => {
+            toast.success("Opening Sign Up");
+            navigate("/signup");
+          }} className="font-bold text-green-950 hover:underline">Sign Up</button></p>
         </form>
       </div>
     </AuthLayout>

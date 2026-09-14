@@ -2,6 +2,7 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import toast from "react-hot-toast";
 
 export const Header = () => {
   const [recipeSearch, setRecipeSearch] = useState("");
@@ -9,7 +10,11 @@ export const Header = () => {
 
   function handleSearch() {
     const query = recipeSearch.trim();
-    if (!query) return;
+    if (!query) {
+      toast.error("Please enter a recipe to search");
+      return;
+    }
+    toast.success(`Searching for ${query}`);
     navigate("/search", { state: { query } });
   }
 
@@ -17,7 +22,10 @@ export const Header = () => {
     <div className="flex min-h-[100svh] w-full flex-col">
       <header className="px-4 py-4 sm:px-6 md:px-8 lg:px-12">
         <div className="flex items-center justify-between gap-3">
-          <button onClick={() => navigate("/")} className="flex min-w-0 items-center">
+          <button onClick={() => {
+            toast.success("Home opened");
+            navigate("/");
+          }} className="flex min-w-0 items-center">
             <img src={logo} alt="RecipeBox logo" className="size-12 object-contain sm:size-14 md:size-16 lg:size-20" />
             <span className="font-['Kaushan_Script'] text-xl font-bold text-green-950 sm:text-2xl md:text-3xl lg:text-4xl">
               RecipeBox
@@ -25,10 +33,16 @@ export const Header = () => {
           </button>
 
           <nav className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <button onClick={() => navigate("/login")} className="rounded-full border border-green-950 px-3 py-1.5 text-xs font-bold text-green-950 shadow-sm transition hover:bg-white sm:px-4 sm:text-sm md:text-base">
+            <button onClick={() => {
+              toast.success("Opening Login");
+              navigate("/login");
+            }} className="rounded-full border border-green-950 px-3 py-1.5 text-xs font-bold text-green-950 shadow-sm transition hover:bg-white sm:px-4 sm:text-sm md:text-base">
               Login
             </button>
-            <button onClick={() => navigate("/signup")} className="rounded-full bg-green-950 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-green-900 sm:px-4 sm:text-sm md:text-base">
+            <button onClick={() => {
+              toast.success("Opening Sign Up");
+              navigate("/signup");
+            }} className="rounded-full bg-green-950 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-green-900 sm:px-4 sm:text-sm md:text-base">
               Sign Up
             </button>
           </nav>

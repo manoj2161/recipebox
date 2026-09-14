@@ -2,6 +2,7 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "./AuthLayout";
+import toast from "react-hot-toast";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -37,7 +38,10 @@ export const ForgotPassword = () => {
       newErrors.cpassword = "Confirm password is required";
     else if (formData.cpassword !== formData.password)
       newErrors.cpassword = "Passwords do not match";
-    if (Object.keys(newErrors).length) return setErrors(newErrors);
+    if (Object.keys(newErrors).length) {
+      toast.error("Please fix the errors and try again");
+      return setErrors(newErrors);
+    }
 
     localStorage.setItem(
       "recipeBoxUsers",
@@ -53,6 +57,7 @@ export const ForgotPassword = () => {
         ),
       ),
     );
+    toast.success("Password changed successfully!");
     setLoader(true);
     setTimeout(() => {
       setLoader(false);

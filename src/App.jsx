@@ -10,6 +10,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { FullRecipe } from "./components/FullRecipe";
 import { PageNotFound } from "./components/PageNotFound";
 import { ShoppingList } from "./components/ShoppingList";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() =>
@@ -17,7 +18,9 @@ function App() {
   );
 
   return (
-    <Routes>
+    <>
+      <Toaster position="top-right" />
+      <Routes>
       <Route path="/" element={<Home />} />
 
       <Route path="/signup" element={<Signup />} />
@@ -60,7 +63,8 @@ function App() {
       <Route path="/recipe/:id" element={<FullRecipe />} />
 
       <Route path="*" element={<PageNotFound />} />
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

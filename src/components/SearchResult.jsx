@@ -159,12 +159,16 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
 
         if (!meals.length) {
           setError(`No recipes found for "${searchQuery.trim()}".`);
+          toast.error("No recipes found");
+        } else {
+          toast.success(`${meals.length} recipe${meals.length === 1 ? "" : "s"} found`);
         }
       } catch (err) {
         if (err.name !== "CanceledError" && err.name !== "AbortError") {
           console.error(err);
 
           setError("Something went wrong while searching.");
+          toast.error("Something went wrong while searching");
         }
       } finally {
         setLoading(false);
@@ -191,10 +195,12 @@ export const SearchResult = ({ isLoggedIn, setIsLoggedIn }) => {
       );
 
       setRandom(response.data.meals?.[0] || null);
+      toast.success("Random recipe loaded!");
     } catch (err) {
       console.error(err);
 
       setError("Unable to load a random recipe.");
+      toast.error("Unable to load a random recipe");
     } finally {
       setLoading(false);
     }

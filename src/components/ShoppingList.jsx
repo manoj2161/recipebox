@@ -62,6 +62,7 @@ export const ShoppingList = ({ isLoggedIn }) => {
           : item,
       ),
     );
+    toast.success("Item status updated");
   }
 
   function handleDelete(id) {
@@ -88,14 +89,20 @@ export const ShoppingList = ({ isLoggedIn }) => {
           </p>
 
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              toast.success("Opening Login");
+              navigate("/login");
+            }}
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-green-950 px-6 py-3 font-semibold text-white transition hover:bg-green-900 active:scale-95"
           >
             Login
           </button>
 
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => {
+            toast.success("Going back");
+            navigate(-1);
+          }}
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-50 active:scale-95"
           >
             <ArrowLeft className="size-4" />

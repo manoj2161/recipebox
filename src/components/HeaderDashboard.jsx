@@ -1,4 +1,5 @@
 import { Bookmark, Search } from "lucide-react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const HeaderDashboard = ({
@@ -11,8 +12,12 @@ export const HeaderDashboard = ({
   const navigate = useNavigate();
 
   function submitSearch() {
-    if (!newSearch.trim()) return;
+    if (!newSearch.trim()) {
+      toast.error("Please enter a recipe to search");
+      return;
+    }
 
+    toast.success(`Searching for ${newSearch.trim()}`);
     setSearchQuery(newSearch.trim());
   }
 
@@ -48,7 +53,10 @@ export const HeaderDashboard = ({
         {isLoggedIn ? (
           <>
             <button
-              onClick={() => navigate("/myrecipes")}
+              onClick={() => {
+                toast.success("Opening My Recipes");
+                navigate("/myrecipes");
+              }}
               aria-label="Saved recipes"
               className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-green-950 shadow-sm transition hover:bg-green-50"
             >
@@ -64,7 +72,10 @@ export const HeaderDashboard = ({
           </>
         ) : (
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => {
+            toast.success("Opening Login");
+            navigate("/login");
+          }}
             className="rounded-full bg-green-950 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-green-900 sm:px-5"
           >
             Login

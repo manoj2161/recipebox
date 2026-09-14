@@ -2,6 +2,7 @@ import axios from "axios";
 import { ArrowLeft, Heart, Share2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const FullRecipe = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ export const FullRecipe = () => {
       } catch (err) {
         console.error(err);
         setError("Unable to load this recipe.");
+      toast.error("Unable to load this recipe");
       }
     }
     fetchFullRecipe();
@@ -45,6 +47,7 @@ export const FullRecipe = () => {
     const currentUser = JSON.parse(localStorage.getItem("recipeBoxCurrentUser"));
     if (!currentUser) {
       sessionStorage.setItem("pendingRecipe", JSON.stringify(recipeToSave));
+      toast.error("Please login to save recipes");
       navigate("/login");
       return;
     }
@@ -53,6 +56,7 @@ export const FullRecipe = () => {
     const loggedUser = users.find((user) => user.id === currentUser);
     if (!loggedUser) {
       sessionStorage.setItem("pendingRecipe", JSON.stringify(recipeToSave));
+      toast.error("Please login to save recipes");
       navigate("/login");
       return;
     }
@@ -61,6 +65,7 @@ export const FullRecipe = () => {
     if (!loggedUser.recipies.some((item) => item.idMeal === recipeToSave.idMeal)) {
       loggedUser.recipies.push(recipeToSave);
       localStorage.setItem("recipeBoxUsers", JSON.stringify(users));
+      toast.success("Recipe saved successfully!");
     }
   }
 
@@ -74,7 +79,15 @@ export const FullRecipe = () => {
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-semibold text-green-950 hover:bg-green-50 sm:text-base"><ArrowLeft className="size-5" /> Back</button>
         <div className="flex items-center gap-1 sm:gap-2">
           <button onClick={() => saveRecipe(fullRecipe)} aria-label="Save recipe" className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-green-950 hover:bg-green-50"><Heart className="size-5" /></button>
-          <button onClick={() => navigator.share?.({ title: fullRecipe.strMeal, url: window.location.href })} aria-label="Share recipe" className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-green-950 hover:bg-green-50"><Share2 className="size-5" /></button>
+          <button onClick={() => {
+            if (navigator.share) {
+              navigator.share({ title: fullRecipe.strMeal, url: window.location.href });
+              toast.success("Share menu opened");
+            } else {
+              navigator.clipboard?.writeText(window.location.href);
+              toast.success("Recipe link copied");
+            }
+          }} aria-label="Share recipe" className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-green-950 hover:bg-green-50"><Share2 className="size-5" /></button>
         </div>
       </header>
 
